@@ -1,8 +1,11 @@
-export function App() {
+import { Auth } from './elements/auth';
+function App() {
   const element = (
     <div className="main_container">
-      <h1>Secret Santa</h1>
+      <Auth />
     </div>
   );
   return element;
 }
+
+export default App;
