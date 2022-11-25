@@ -1,2 +1,2 @@
-secret_santa_client/node_modules
-secret_santa_server/node_modules
+secret_santa_client/node_modules/*
+secret_santa_server/node_modules/*
