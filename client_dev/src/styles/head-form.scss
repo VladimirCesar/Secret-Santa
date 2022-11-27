@@ -1,0 +1,44 @@
+.head-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.timer {
+    width: 30%;
+    background-color: #981920;
+    color: #E9CEBD;
+    border-radius: 15px 15px 0 0;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.timer h3 {
+    margin: 0;
+}
+
+.timer-number {
+    font-family: 'DigitalNumbers', serif;
+    font-size: 3em;
+    font-weight: 400;
+    padding-right: 10px;
+}
+
+.timer-text {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+.menu {
+    width: 100%;
+    height: 8%;
+    background-color: #E9CEBD;
+    background-image: url(../res/logo.png);
+    background-repeat: no-repeat;
+    background-size: 18%;
+}

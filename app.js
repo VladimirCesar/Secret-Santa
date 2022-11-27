@@ -1,42 +1,48 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+require('dotenv').config();
+const express = require('express');
+const dataman = require('./dataman');
+const app = express();
+const port = process.env.PORT || 80;
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-app.listen(80);
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + "/test_build/index.html");
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.get('/new_user/:username/:password', (req, res) => {
+  dataman.users_database.find({ username: req.params.username }, (err, docs) => {
+    if (docs.length > 0) {
+      res.status(400).send("Пользователь с таким именем уже существует");
+      return;
+    }
+    dataman.users_database.insert({
+      username: req.params.username,
+      password: req.params.password,
+    }, (err, data) => {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      res.status(200).send('Пользователь создан');
+    });
+  });
 });
 
-module.exports = app;
+app.post('/auth', (req, res) => {
+  dataman.users_database.find({ username: req.body.login }, (err, docs) => {
+    if (docs.length === 0) {
+      res.status(400).send("Пользователь не найден");
+      return;
+    }
+    const user_doc = docs[0];
+    if (user_doc.password != req.body.password) {
+      res.status(400).send("Неверный пароль");
+      return;
+    }
+    res.status(200).send(user_doc['_id']);
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Node serv is listening on port ${port}`);
+});
