@@ -1,3 +1,2 @@
 node_modules/*
-client_dev/node_modules/*
-client_dev/build/*
+databases/*
