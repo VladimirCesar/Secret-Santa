@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth</title>
+</head>
+
+<body>
+    <div id="auth_form">
+        <form name="login">
+            <input type="text" name="login" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="button" onclick="auth_handler()" value="Войти">
+        </form>
+        <form name="signin">
+            <input type="text" name="signin_login" placeholder="Логин">
+            <input type="password" name="signin_password" placeholder="Пароль">
+            <input type="button" onclick="signin_handler()" value="Зарегистрироваться">
+        </form>
+    </div>
+    <div id="main" style="display: none;">
+        Пользователь: <span id="user"></span>
+        <br>
+        <div class="wish_list">
+            <h2>Список желаний</h2>
+            <div id="wish_list">
+                <input type="text" name="wish" placeholder="Новое желание">
+                <input type="button" onclick="add_wish()" value="Добавить">
+                <div class="wish_list__list">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/public_scripts/index">
+    </script>
+</body>
+
+</html>
